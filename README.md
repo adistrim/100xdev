@@ -1,3 +1,3 @@
 # 100xDev
 
-Shout-out to @hkirat
+Shout-out to [Harkirat Singh](https://github.com/hkirat) ✨
