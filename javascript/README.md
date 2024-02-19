@@ -1,0 +1,6 @@
+- It's Interpreted language
+- because of node.js JS can be used in the backend also
+- It's a dynamic language (types can be changed) [can give runtime error in big code base. that's why typescript exists]
+- Single threaded
+- It's considered bad language for scalable systems
+- But there's a way, we can make it use all cores of a CPU [Idk the way yet]
