@@ -12,7 +12,7 @@ mongoUrl=mongodb+srv://<username>:<password>@clustername.mongodb.net/todos
 - Clone the repository
 - Run `npm install` to install the dependencies
 - Create a `.env` file in the root directory and add the mongoDB url
-- Run `node server.js' to start the server
+- Run `node server.js` to start the server
 - Open the `index.html` file in the browser
 
 ### What are CORES?
