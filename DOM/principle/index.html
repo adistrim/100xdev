@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let timeout
+
+    const debounceDisplay = () => {
+        clearTimeout(timeout)
+
+        timeout = setTimeout(() => {
+            interest() // calling the function whose execution is to be delayed
+        }, 500)
+    }
+
+    const interest = async () => {
+        const principle = document.getElementById('principle').value
+        const rate = document.getElementById('rate').value
+        const time = document.getElementById('time').value
+
+        const response = await fetch(`http://localhost:3000/interest?principle=${principle}&rate=${rate}&time=${time}`)
+
+        const data = await response.text()
+
+        document.getElementById('display').innerHTML = data
+    }
+</script>
+
+<body>
+    <input oninput="debounceDisplay()" id="principle" type="text" placeholder="principle"><br><br>
+    <input oninput="debounceDisplay()" id="rate" type="text" placeholder="rate"><br><br>
+    <input oninput="debounceDisplay()" id="time" type="text" placeholder="time (years)"><br><br>
+    <div id="display"></div>
+</body>
+
+</html>
