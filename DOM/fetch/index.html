@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    const calculateSum = async () => {
+        const a = document.getElementById('input1').value
+        const b = document.getElementById('input2').value
+        const response = await fetch(`http://localhost:3000/sum?a=${a}&b=${b}`)
+        const data = await response.text()
+        document.getElementById('displaySum').innerHTML = data
+    }
+</script>
+<body>
+    <input id="input1" type="text" placeholder="input 1"><br><br>
+    <input id="input2" type="text" placeholder="input 2"><br><br>
+    <button onclick="calculateSum()">Calculate sum</button><br><br>
+    <div id="displaySum"></div>
+</body>
+</html>
