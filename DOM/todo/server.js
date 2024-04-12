@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors');
+const zod = require('zod');
 require('dotenv').config();
 
 const mongoUrl = process.env.mongoUrl;
@@ -22,7 +23,40 @@ app.use(express.json())
 // Using CORS middleware
 app.use(cors());
 
-app.post('/todos', async (req, res) => {
+// input validation schema
+const todoSchema = zod.object({
+    title: zod.string().min(1),
+    status: zod.boolean()
+});
+
+// Middleware to validate input
+const validateTodo = (req, res, next) => {
+    const { error } = todoSchema.safeParse(req.body);
+    if (error) {
+        return res.status(400).send(error.message);
+    }
+    next();
+};
+
+// Middleware to validate update input
+const validateTodoUpdate = (req, res, next) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    // Validating if the status is boolean
+    if (typeof status !== 'boolean') {
+        return res.status(400).send('Invalid status value. Status must be boolean.');
+    }
+
+    // Validating if the ID is a valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send('Invalid todo ID.');
+    }
+
+    next();
+};
+
+app.post('/todos', validateTodo, async (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     const title = req.body.title;
     const status = req.body.status;
@@ -38,9 +72,9 @@ app.post('/todos', async (req, res) => {
         res.send('Saved');
     } catch (error) {
         console.error('Error:', error);
-        res.send(error);
+        res.status(500).send(error); // Sending internal server error status
     }
-})
+});
 
 app.get('/todos', async (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -49,7 +83,7 @@ app.get('/todos', async (req, res) => {
 })
 
 
-app.put('/todo/:id', async (req, res) => {
+app.put('/todo/:id', validateTodoUpdate, async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
