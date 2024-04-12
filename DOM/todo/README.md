@@ -6,6 +6,9 @@
 #### Example of what inside the .env file
 ```env
 mongoUrl=mongodb+srv://<username>:<password>@clustername.mongodb.net/todos
+jwtPass=thatUltimateSecretKey
+todoDb=todoDataBaseName
+userDb=userDataBaseName
 ```
 
 #### Getting Started
@@ -14,6 +17,22 @@ mongoUrl=mongodb+srv://<username>:<password>@clustername.mongodb.net/todos
 - Create a `.env` file in the root directory and add the mongoDB url
 - Run `node server.js` to start the server
 - Open the `index.html` file in the browser
+
+#### Dependencies
+```json
+node version: v21.7.2
+```
+
+```json
+"dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.1",
+    "zod": "^3.22.4"
+}
+```
 
 ### What are CORES?
 
